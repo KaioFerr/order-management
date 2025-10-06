@@ -1,17 +1,48 @@
 version: '3.8'
 
 services:
+  order-app:
+    build: .
+    container_name: order_management_app
+    ports:
+      - "8080:8080"
+    depends_on:
+      - postgres-db
+      - redis-cache
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://postgres-db:5432/order_db
+      - SPRING_DATA_REDIS_HOST=redis-cache
+
   postgres-db:
     image: postgres:14.2
     container_name: order_management_db
     environment:
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=***REMOVED***
-      - POSTGRE_DB=order_db
+      - POSTGRES_DB=order_db
     ports:
       - "5432:5432"
     volumes:
       - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: [ "CMD-SHELL", "pg_isready -U postgres -d order_db" ]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  redis-cache:
+    image: redis:7.0-alpine
+    container_name: order_management_redis
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+    healthcheck:
+      test: [ "CMD", "redis-cli", "ping" ]
+      interval: 10s
+      timeout: 5s
+      retries: 5
 
 volumes:
   postgres_data:
+  redis_data:

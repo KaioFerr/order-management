@@ -34,3 +34,7 @@ build/
 
 # Arquivo de variáveis de ambiente locais. NUNCA comitar!
 .env
+
+# Ferramentas temporárias
+bfg-1.14.0.jar
+passwords.txt

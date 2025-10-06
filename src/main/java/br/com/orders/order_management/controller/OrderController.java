@@ -9,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.net.URI;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/orders")
@@ -33,5 +34,12 @@ public class OrderController {
         response.setTotalAmount(newOrder.getTotalAmount());
 
         return ResponseEntity.created(URI.create(("/api/orders/" + newOrder.getId()))).body(response);
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<OrderResponse> getOrderById(@PathVariable Long id) {
+        return orderService.findOrderById(id)
+                .map(ResponseEntity::ok)
+                .orElse(ResponseEntity.notFound().build());
     }
 }

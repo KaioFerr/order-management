@@ -18,11 +18,13 @@ public class OrderService {
 
     private final OrderRepository orderRepository;
     private final KafkaProducerService kafkaProducerService;
+    private final KafkaConsumerService kafkaConsumerService;
 
     @Autowired
-    public OrderService(OrderRepository orderRepository, KafkaProducerService kafkaProducerService){
+    public OrderService(OrderRepository orderRepository, KafkaProducerService kafkaProducerService, KafkaConsumerService kafkaConsumerService){
         this.orderRepository = orderRepository;
         this.kafkaProducerService = kafkaProducerService;
+        this.kafkaConsumerService = kafkaConsumerService;
     }
 
     public Order createOrder(CreateOrderRequest request){
@@ -42,6 +44,7 @@ public class OrderService {
                 LocalDateTime.now()
         );
         kafkaProducerService.sendOrderEvent(event);
+        kafkaConsumerService.consumerOrderEvent(event);
 
         return savedOrder;
     }

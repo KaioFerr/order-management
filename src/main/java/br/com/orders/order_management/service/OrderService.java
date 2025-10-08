@@ -9,6 +9,7 @@ import br.com.orders.order_management.repository.OrderRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
+import org.springframework.web.service.annotation.DeleteExchange;
 
 import java.time.LocalDateTime;
 import java.util.Optional;

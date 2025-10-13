@@ -19,7 +19,7 @@ jobs:
           distribution: 'temurin'
 
       - name: Build and test with Maven
-        run: mvn clean install -DskipTest
+        run: mvn clean install -DskipTests
 
   build-and-push-docker-image:
     needs: build-and-test

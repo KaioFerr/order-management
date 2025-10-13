@@ -2,6 +2,7 @@
 
 Este é um projeto de estudo para demonstrar a construção de uma aplicação backend completa com Java, Spring Boot, Docker, Redis, Apache Kafka e, futuramente, CI/CD.
 
+[![CI Pipeline for Order Management System](https://github.com/KaioFerr/order-management/actions/workflows/ci-pipeline.yml/badge.svg)](https://github.com/KaioFerr/order-management/actions/workflows/ci-pipeline.yml)
 ## Tecnologias Utilizadas
 
 * Java 17

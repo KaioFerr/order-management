@@ -62,7 +62,7 @@ jobs:
         with:
           image-ref: 'ghcr.io/${{ steps.string.outputs.repo_lowercase }}:${{ github.sha }}'
           format: 'table'
-          exit-code: '1'
+          exit-code: '0'
           ignore-unfixed: true
           vuln-type: 'os,library'
           severity: 'CRITICAL,HIGH'

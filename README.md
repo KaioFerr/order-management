@@ -12,7 +12,10 @@ Este é um projeto de estudo para demonstrar a construção de uma aplicação b
 * Redis (via Docker)
 * Apache Kafka & Zookeeper (via Docker)
 * Docker & Docker Compose
-
+* Spring Boot Actuator
+* Prometheus (via Docker)
+* Grafana (via Docker)
+  
 ## Como Rodar o Projeto
 
 Para executar o ambiente de desenvolvimento completo, você precisa ter o Docker e o Docker Compose instalados.
@@ -64,6 +67,18 @@ Para ver as mensagens sendo produzidas e consumidas em tempo real:
 2.  **Crie um Pedido**: Use o endpoint `POST /api/orders` para criar um novo pedido.
 3.  **Veja a Mensagem**: Na Kafka UI, navegue até **Topics -> orders.new -> Messages**. Você verá a nova mensagem que foi produzida.
 4.  **Verifique o Consumidor**: Nos logs da aplicação (`docker-compose logs order-app`), você verá a mensagem sendo consumida pelo `KafkaConsumerService`.
+
+## Monitoramento e Observabilidade
+
+A aplicação é instrumentada com **Spring Boot Actuator** para expor métricas de performance e saúde.
+
+* **Prometheus** está configurado para coletar (scrape) essas métricas periodicamente.
+    * **URL do Prometheus:** `http://localhost:9090`
+    * Para verificar se a aplicação está sendo monitorada, vá para **Status -> Targets**.
+
+* **Grafana** é utilizado para visualizar as métricas coletadas pelo Prometheus em dashboards.
+    * **URL do Grafana:** `http://localhost:3000`
+    * **Login:** `admin` / `admin`
 
 ## Endpoints da API
 

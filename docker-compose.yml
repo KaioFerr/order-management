@@ -78,6 +78,27 @@ services:
       KAFKA_CLUSTERS_0_NAME: local
       KAFKA_CLUSTERS_0_BOOTSTRAPSERVERS: kafka:9092
 
+  prometheus:
+    image: prom/prometheus:v2.37.1
+    container_name: prometheus
+    ports:
+      - "9090:9090"
+    volumes:
+      - ./monitoring/prometheus.yml:/etc/prometheus/prometheus.yml
+    depends_on:
+      - order-app
+
+  grafana:
+      image: grafana/grafana-oss:9.2.5
+      container_name: grafana
+      ports:
+        - "3000:3000"
+      environment:
+        - GF_SECURITY_ADMIN_USER=admin
+        - GF_SECURITY_ADMIN_PASSWORD=admin
+      depends_on:
+        - prometheus
+
 volumes:
   postgres_data:
   redis_data:
